@@ -23,4 +23,20 @@ jobs:
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: tfsec.sarif 
+name: tfsec-pr-commenter
+on:
+  pull_request:
+jobs:
+  tfsec:
+    name: tfsec PR commenter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+
+      - name: tfsec
+        uses: tfsec/tfsec-pr-commenter-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
